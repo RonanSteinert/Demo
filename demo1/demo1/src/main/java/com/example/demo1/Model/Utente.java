@@ -1,6 +1,6 @@
 package com.example.demo1.Model;
 
-import com.example.demo1.Enum.Ruolo;
+import com.example.demo1.Model.Enum.Ruolo;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,7 +17,7 @@ public class Utente {
 
     private String cognome;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
     private String password;

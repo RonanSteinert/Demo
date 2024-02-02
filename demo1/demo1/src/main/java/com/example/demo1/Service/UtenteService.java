@@ -10,7 +10,9 @@ public interface UtenteService {
 
     Optional<Utente> getUtenteById(Long id);
 
-    //Optional<Utente> getUtenteByEmail(String email);
+    Optional<Utente> getUtenteByNome(String nome);
+
+    Optional<Utente> getUtenteByEmail(String email);
 
     Utente saveUtente(Utente utente);
 

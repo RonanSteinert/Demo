@@ -26,10 +26,15 @@ public class UtenteServiceImpl implements UtenteService {
         return utenteRepo.findById(id);
     }
 
-    /*@Override
+    @Override
+    public Optional<Utente> getUtenteByNome(String nome) {
+        return utenteRepo.findByNome(nome);
+    }
+
+    @Override
     public Optional<Utente> getUtenteByEmail(String email) {
         return utenteRepo.findByEmail(email);
-    }*/
+    }
 
     @Override
     public Utente saveUtente(Utente utente) {

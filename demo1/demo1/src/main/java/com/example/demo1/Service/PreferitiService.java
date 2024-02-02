@@ -2,16 +2,19 @@ package com.example.demo1.Service;
 
 import com.example.demo1.Model.Ingrediente;
 import com.example.demo1.Model.Preferiti;
+import com.example.demo1.Model.Utente;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface PreferitiService {
+
+   // Preferiti getPreferitoByUtente(Utente utente);
     List<Preferiti> getAllPreferiti();
 
-    Optional<Ingrediente> getIngredienteById(Long id);
+    Optional<Preferiti> getPreferitiById(Long id);
 
-    Ingrediente saveIngrediente(Ingrediente ingrediente);
+    Preferiti savePreferiti(Preferiti preferiti);
 
-    void deleteIngredienteById(Long id);
+    void deletePreferitiById(Long id);
 }
