@@ -4,9 +4,10 @@ import com.example.demo1.Model.RicettaIngrediente;
 import com.example.demo1.Repository.RicettaIngredienteRepo;
 import com.example.demo1.Service.RicettaIngredienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class RicettaIngredienteServiceImpl implements RicettaIngredienteService {
 
     private final RicettaIngredienteRepo ricettaIngredienteRepo;
@@ -17,12 +18,12 @@ public class RicettaIngredienteServiceImpl implements RicettaIngredienteService 
 
     @Override
     public List<RicettaIngrediente> findByRicettaId(Long ricettaId) {
-        return ricettaIngredienteRepo.findByRicettaId(ricettaId);
+        return ricettaIngredienteRepo.findByRicetta_IdRicetta(ricettaId);
     }
 
     @Override
     public List<RicettaIngrediente> findByIngredienteId(Long ingredienteId) {
-        return ricettaIngredienteRepo.findByIngredienteId(ingredienteId);
+        return ricettaIngredienteRepo.findByIngrediente_IdIngrediente(ingredienteId);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.example.demo1.Controller;
 import com.example.demo1.Model.Ricetta;
 import com.example.demo1.Model.Utente;
 import com.example.demo1.Service.RicettaService;
+import com.example.demo1.Service.impl.RicettaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +16,15 @@ import java.util.Optional;
 @RequestMapping(name = "/ricetta")
 public class RicettaController {
 
-    private final RicettaService ricettaService;
+    private final RicettaServiceImpl ricettaService;
 
     @Autowired
-    public RicettaController(RicettaService ricettaService) {
+    public RicettaController(RicettaServiceImpl ricettaService) {
         this.ricettaService = ricettaService;
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("/ricette")
     public ResponseEntity<List<Ricetta>> getAllRicette() {
         try {
             List<Ricetta> ricetta = ricettaService.getAllRicette();
@@ -33,7 +34,7 @@ public class RicettaController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/ricettaId/{id}")
     public ResponseEntity<Ricetta> getRicettaById(@PathVariable Long id) {
         Optional<Ricetta> ricetta = ricettaService.getRicettaById(id);
         return ricetta.map(value -> new ResponseEntity<>(value, HttpStatus.OK))

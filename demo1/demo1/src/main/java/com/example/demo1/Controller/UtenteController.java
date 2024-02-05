@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(name = "/utenti")
+@RequestMapping(name = "/utente")
 public class UtenteController {
 
     private final UtenteServiceImpl utenteService;
@@ -22,7 +22,7 @@ public class UtenteController {
         this.utenteService = utenteService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/utenti")
     public ResponseEntity<List<Utente>> getAllUtenti() {
         try {
             List<Utente> utenti = utenteService.getAllUtenti();
@@ -32,14 +32,14 @@ public class UtenteController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/dettaglio")
     public ResponseEntity<Utente> getUtenteById(@PathVariable Long id) {
         Optional<Utente> utente = utenteService.getUtenteById(id);
         return utente.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/save")
+    @PostMapping("/utente/save")
     public ResponseEntity<Utente> saveUtente(@RequestBody Utente utente) {
         try {
             Utente savedUtente = utenteService.saveUtente(utente);
@@ -49,7 +49,7 @@ public class UtenteController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUtente(@PathVariable Long id) {
 
         try{

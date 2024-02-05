@@ -3,6 +3,8 @@ package com.example.demo1.Model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "Ricette")
@@ -22,6 +24,10 @@ public class Ricetta {
     @ManyToOne
     @JoinColumn(name = "ID_utente")
     private Utente utente;
+
+
+    @OneToMany(mappedBy = "ricetta")
+    private List<RicettaIngrediente> ricettaIngredienti;
 
     // Getters e setters
 }

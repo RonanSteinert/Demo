@@ -5,10 +5,11 @@ import com.example.demo1.Model.Utente;
 import com.example.demo1.Repository.PreferitiRepo;
 import com.example.demo1.Service.PreferitiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class PreferitiServiceImpl implements PreferitiService {
 
     private final PreferitiRepo preferitiRepo;

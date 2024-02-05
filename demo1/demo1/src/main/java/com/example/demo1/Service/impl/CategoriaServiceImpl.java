@@ -4,10 +4,11 @@ import com.example.demo1.Model.Categoria;
 import com.example.demo1.Repository.CategoriaRepo;
 import com.example.demo1.Service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class CategoriaServiceImpl implements CategoriaService {
 
     private final CategoriaRepo categoriaRepo;
