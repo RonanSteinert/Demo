@@ -24,5 +24,11 @@ public class Utente {
 
     @Enumerated(EnumType.STRING)
     private Ruolo ruolo;
+    public Utente() {
+
+    }
+    public Utente(long idUtente, String nome, String cognome, String mail, String pass, Ruolo ruolo) {
+    }
+
 
 }

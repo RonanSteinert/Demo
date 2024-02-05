@@ -26,9 +26,14 @@ public class UtenteController {
     public ResponseEntity<List<Utente>> getAllUtenti() {
         try {
             List<Utente> utenti = utenteService.getAllUtenti();
+
+            if (utenti == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
             return new ResponseEntity<>(utenti, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
