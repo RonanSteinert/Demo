@@ -4,31 +4,28 @@ import com.example.demo1.Model.Enum.Ruolo;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
+
 @Data
 @Entity
-@Table(name = "Utenti")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"username"}),
+        @UniqueConstraint(columnNames = {"email"})
+})
 public class Utente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_utente")
-    private Long idUtente;
-
-    private String nome;
-
-    private String cognome;
-
-    @Column(name = "email")
+    private long id;
+    private String name;
+    private String username;
     private String email;
-
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Ruolo ruolo;
-    public Utente() {
-
-    }
-    public Utente(long idUtente, String nome, String cognome, String mail, String pass, Ruolo ruolo) {
-    }
-
-
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
 }

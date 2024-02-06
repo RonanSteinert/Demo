@@ -11,10 +11,14 @@ public interface UtenteService {
 
     Optional<Utente> getUtenteById(Long id);
 
-    Optional<Utente> getUtenteByNome(String nome);
+    Optional<Utente> findByUsername(String nome);
 
-    Optional<Utente> getUtenteByEmail(String email);
+    Optional<Utente> findByUsernameOrEmail(String userName);
 
+    Optional<Utente> findByEmail(String email);
+
+    Boolean existsByUsername(String username);
+    Boolean existsByEmail(String email);
     Utente saveUtente(Utente utente);
 
     void deleteUtenteById(Long id);

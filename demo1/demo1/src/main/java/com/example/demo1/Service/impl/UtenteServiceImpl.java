@@ -27,14 +27,30 @@ public class UtenteServiceImpl implements UtenteService {
         return utenteRepo.findById(id);
     }
 
+
     @Override
-    public Optional<Utente> getUtenteByNome(String nome) {
-        return utenteRepo.findByNome(nome);
+    public Optional<Utente> findByUsername(String userName) {
+        return utenteRepo.findByUsername(userName);
     }
 
     @Override
-    public Optional<Utente> getUtenteByEmail(String email) {
+    public Optional<Utente> findByUsernameOrEmail(String userName) {
+        return utenteRepo.findByEmail(userName);
+    }
+
+    @Override
+    public Optional<Utente> findByEmail(String email) {
         return utenteRepo.findByEmail(email);
+    }
+
+    @Override
+    public Boolean existsByUsername(String username) {
+        return utenteRepo.existsByUsername(username);
+    }
+
+    @Override
+    public Boolean existsByEmail(String email) {
+        return utenteRepo.existsByEmail(email);
     }
 
     @Override
