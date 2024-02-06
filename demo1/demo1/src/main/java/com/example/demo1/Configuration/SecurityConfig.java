@@ -44,8 +44,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/auth/signin").permitAll()
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
-
                 );
+        http.csrf().disable();
 
 
         return http.build();
