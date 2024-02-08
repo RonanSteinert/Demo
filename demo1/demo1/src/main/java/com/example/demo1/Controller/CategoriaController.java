@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/categoria")
 public class CategoriaController {
-
+/*
     private final CategoriaService categoriaService;
     @Autowired
     public CategoriaController(CategoriaService categoriaService) {
@@ -57,5 +57,5 @@ public class CategoriaController {
         }catch (Exception e){
             return new ResponseEntity<>("Errore durante eliminazione della categoria", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 }

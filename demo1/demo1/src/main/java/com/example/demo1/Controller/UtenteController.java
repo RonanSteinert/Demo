@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -20,50 +21,16 @@ import java.util.Optional;
 @RequestMapping("/utente")
 public class UtenteController {
 
-    private AuthenticationManager authenticationManager;
     private final UtenteServiceImpl utenteService;
     @Autowired
-    public UtenteController(AuthenticationManager authenticationManager, UtenteServiceImpl utenteService) {
-        this.authenticationManager = authenticationManager;
+    public UtenteController(UtenteServiceImpl utenteService) {
         this.utenteService = utenteService;
     }
-
-    private boolean isUserAuthenticated() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        return authentication != null && authentication.isAuthenticated();
-    }
-
-    /*@GetMapping("/checkAuthentication")
-    public String checkAuthentication() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null && authentication.isAuthenticated()) {
-            return "L'utente è autenticato!";
-        } else {
-            return "L'utente non è autenticato.";
-        }
-    }*/
-
     @GetMapping("/utenti")
     public ResponseEntity<List<Utente>> getAllUtenti() {
-
-        boolean x = SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        try {
             List<Utente> utenti = utenteService.getAllUtenti();
 
-            if (utenti == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-
             return new ResponseEntity<>(utenti, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @GetMapping("/{id}/dettaglio")
