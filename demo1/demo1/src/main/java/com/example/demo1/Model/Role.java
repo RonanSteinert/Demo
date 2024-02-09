@@ -1,6 +1,8 @@
 package com.example.demo1.Model;
 
+import com.example.demo1.Model.Enum.Ruolo;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +16,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 60)
-    private String name;
+
+    @Enumerated(EnumType.STRING)
+    @Size(max = 50)
+    private Ruolo name;
 }

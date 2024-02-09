@@ -2,6 +2,9 @@ package com.example.demo1.Model;
 
 import com.example.demo1.Model.Enum.Ruolo;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,63 +14,51 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username"}),
         @UniqueConstraint(columnNames = {"email"})
 })
-public class Utente  implements UserDetails {
-
+public class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String name;
-    private String username;
-    private String email;
-    private String password;
+        private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private Ruolo role;
+        @NotBlank
+        @Size(max = 20)
+        private String username;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-    @Override
-    public String getPassword() {
-        return password;
-    }
+        @NotBlank
+        @Size(max = 50)
+        @Email
+        private String email;
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
+        @NotBlank
+        @Size(max = 120)
+        private String password;
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+        @ManyToMany(fetch = FetchType.LAZY)
+        @JoinTable(  name = "user_roles",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id"))
+        private Set<Role> roles = new HashSet<>();
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+        public Utente() {
+        }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+        public Utente(String username, String email, String password) {
+            this.username = username;
+            this.email = email;
+            this.password = password;
+        }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+        // getters and setters
 }

@@ -5,22 +5,20 @@ import com.example.demo1.Model.AuthenticationResponse;
 import com.example.demo1.Model.Enum.Ruolo;
 import com.example.demo1.Model.RegisterRequest;
 import com.example.demo1.Model.Utente;
-import com.example.demo1.Repository.UtenteRepo;
+import com.example.demo1.Repository.UtenteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-
+/*
     private final PasswordEncoder passwordEncoder;
 
-    private final UtenteRepo utenteRepo;
+    private final UtenteRepository utenteRepository;
 
     private final JwtServiceImpl jwtService;
 
@@ -33,7 +31,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .role(Ruolo.USER)
                 .build();
-        utenteRepo.save(user);
+        utenteRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
@@ -47,10 +45,10 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = utenteRepo.findByUsername(request.getUsername()).orElseThrow();
+        var user = utenteRepository.findByUsername(request.getUsername()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
-    }
+    }*/
 }

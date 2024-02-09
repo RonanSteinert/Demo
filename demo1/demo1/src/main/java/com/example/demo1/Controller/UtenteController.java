@@ -1,17 +1,11 @@
 package com.example.demo1.Controller;
 
+import com.example.demo1.Configuration.RoleUtils;
 import com.example.demo1.Model.Utente;
 import com.example.demo1.Service.impl.UtenteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,16 +15,21 @@ import java.util.Optional;
 @RequestMapping("/utente")
 public class UtenteController {
 
+    private final RoleUtils roleUtils;
+
     private final UtenteServiceImpl utenteService;
     @Autowired
-    public UtenteController(UtenteServiceImpl utenteService) {
+    public UtenteController(RoleUtils roleUtils, UtenteServiceImpl utenteService) {
+        this.roleUtils = roleUtils;
         this.utenteService = utenteService;
     }
-    @GetMapping("/utenti")
-    public ResponseEntity<List<Utente>> getAllUtenti() {
-            List<Utente> utenti = utenteService.getAllUtenti();
 
-            return new ResponseEntity<>(utenti, HttpStatus.OK);
+    @GetMapping(value = "/admin/utenti", produces = "application/json")
+    public ResponseEntity<List<Utente>> getAllUtenti() {
+            if (roleUtils.hasRole("ADMIN")){
+            List<Utente> utenti = utenteService.getAllUtenti();
+            return new ResponseEntity<>(utenti, HttpStatus.OK);}
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}/dettaglio")
